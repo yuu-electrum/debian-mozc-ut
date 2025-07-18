@@ -7,8 +7,8 @@ A helper for building and installing Mozc with UT Dictionary based on Debian.
 Make sure you have installed below:
 
 - Docker Engine (Can be installed with Docker Desktop but not mandatory. Rootless docker is also suitable to use this helper.)
-- Fcitx5. I didn't test on other input method frameworks.
-- Debian 13 (trixie) RC2. I've only tested only on it, but might work on Debian 12 (bookworm) and its derivative distribution.
+- Fcitx5. I didn't test the helper on other input method frameworks.
+- Debian 13 (trixie) RC2. I've only tested the helper only on it, which yet might be able to work well with Debian 12 (bookworm) and its derivative distributions.
 
 # How to use
 
