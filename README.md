@@ -1,6 +1,6 @@
 # debian-mozc-ut
 
-A helper for building and installing Mozc with UT Dictionary based on Debian.
+A helper for building and installing Mozc with UT Dictionary.
 
 # System Requirements
 
