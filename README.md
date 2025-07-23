@@ -2,20 +2,25 @@
 
 A helper for building and installing Mozc with UT Dictionary.
 
+## Demo
+
+![Demo](Demo.gif)
+
 # System Requirements
 
 Make sure you have installed below:
 
-- Docker Engine (Can be installed with Docker Desktop but not mandatory. Rootless docker is also suitable to use this helper.)
-- Fcitx5. I didn't test the helper on other input method frameworks.
-- Debian 13 (trixie) RC2. I've only tested the helper only on it, which yet might be able to work well with Debian 12 (bookworm) and its derivative distributions.
+- __Docker Engine__ (Can be installed with Docker Desktop but not mandatory. Rootless docker is also suitable to use this helper.)
+- __Fcitx5__ (I didn't test the helper on other input method frameworks)
+- __Debian 13 (trixie) RC2__ (I've only tested the helper only on it, which yet might be able to work well with Debian 12 (bookworm) and its derivative distributions.)
 
 # How to use
 
 ```bash
 git clone https://github.com/yuu-electrum/debian-mozc-ut.git
 cd debian-mozc-ut
-# You need to join groups that allows sudo to members
+# You need to join groups that allows sudo to members.
+# Type your account password when sudo asks
 make install-fcitx5
 # Creating a backup of this folder is recommended!
 rm ~/.config/mozc
@@ -24,7 +29,7 @@ sudo reboot
 
 # Special Thanks
 
-These script would never exist without websites / repositories mentioned below and I show great appereciation for them.
+These script would NEVER exist without websites / repositories mentioned below and I show great appereciation for them.
 
 ## [google/mozc](https://github.com/google/mozc)
 
