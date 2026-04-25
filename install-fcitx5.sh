@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 OCI_CONTAINER="${RUNNER:docker}"
 
 $OCI_CONTAINER run -itd --name debian-mozc-ut debian-mozc-ut:latest

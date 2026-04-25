@@ -7,15 +7,8 @@ RUN apt-get install -y build-essential dpkg-dev make git qt6ct qt6-base-dev \
     libfcitx5-qt6-dev curl unzip python3 zip unzip openjdk-21-jdk aria2 \
     fakeroot apt-transport-https curl gnupg locales locales-all dialog
 
-# Installs Bazel required to build Mozc
+# Installs bazelisk; mozc's .bazelversion pins the exact Bazel version used at build time
 WORKDIR /root
-RUN aria2c -c https://github.com/bazelbuild/bazel/releases/download/7.3.2/bazel-7.3.2-installer-linux-x86_64.sh
-RUN bash bazel-7.3.2-installer-linux-x86_64.sh --user && bash ~/.bazel/bin/bazel-complete.bash
-ENV PATH="$PATH:/root/bin"
-RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg && mv bazel-archive-keyring.gpg /usr/share/keyrings
-RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | \
-    tee /etc/apt/sources.list.d/bazel.list
-RUN apt-get update && apt-get install -y bazel
 RUN curl -Lo /usr/local/bin/bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.22.0/bazelisk-linux-amd64 && chmod +x /usr/local/bin/bazel
 
 # Fetches latest sourcecode of mozc, and files needed to make deb files
@@ -38,5 +31,10 @@ RUN ln -s /usr/bin/python3 /usr/bin/python && bash make.sh && cat mozcdic-ut.txt
 
 # Finally builds Mozc and deb files needed
 WORKDIR /root/mozc
+
+# absl::StrCat at line 883 has no matching include/dep visible in Bazel 9's strict sandbox;
+# std::string + literal is exactly equivalent here
+RUN sed -i 's/return absl::StrCat(name, ".runfiles");/return name + ".runfiles";/' src/base/system_util.cc
+
 RUN touch WORKSPACE && fakeroot debian/rules binary
 RUN mkdir /build-packages && cp /root/*.deb /build-packages/
